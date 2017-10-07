@@ -1,0 +1,16 @@
+app:
+  container_name: app
+  image: zaiusinc/app
+  environment:
+    - ZAIUS_ENV
+    - PORT=8080
+    - SERVICE_NAME=app
+    - SERVICE_PORT=8080
+  ports:
+    - 0:8080
+  mem_limit: 4294967296
+  volumes:
+    - /efs/home/app/.vault-token-ZAIUS_ENV:/home/app/.vault-token
+    - /data/log/app:/var/log/app
+  command: /opt/app/start.sh
+

@@ -1,0 +1,16 @@
+haproxy:
+  container_name: haproxy
+  image: zaiusinc/haproxy:api-0.1.18
+  ports:
+    - 80:80
+    - 443:443
+    - 1944:1944
+  environment:
+    - ZAIUS_ENV
+    - SERVICE_NAME=haproxy_test
+    - SERVICE_TAGS=prod,${HOSTNAME}
+    - SERVICE_1944_IGNORE=true
+    - SERVICE_443_IGNORE=true
+  net: host
+  restart: always
+  command: haproxy -f /etc/haproxy/haproxy.cfg

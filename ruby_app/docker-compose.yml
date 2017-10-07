@@ -1,0 +1,18 @@
+app:
+  image: zaiusinc/app
+  container_name: app
+  ports:
+    - 5010:5010
+  net: host
+  environment:
+    - AWS_ACCESS_KEY_ID
+    - AWS_SECRET_ACCESS_KEY  #  If Variables aren't instantiated with a value then it will try to pick up variable to exported value on host in the shell running the docker-compose.. 
+    - ZAIUS_ENV
+    - SERVICE_TAGS
+    - SERVICE_NAME=app
+    - SERVICE_PORT=5010
+    - SERVICE_ID
+  volumes:
+    - /efs/home/app/.vault-token-ZAIUS_ENV:/home/app/.vault-token
+    - /data/log/app:/data/log/app
+  command:  scripts/app.sh   #  This application will use variables passed in by environment to run the ruby script: 
